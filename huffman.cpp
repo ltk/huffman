@@ -35,7 +35,15 @@ void increment_lookup(map<char, int>& lookup, char symbol) {
 }
 
 void load_queue(const map<char, int>& lookup, tree_queue& q) {
-  // TODO
+  map<char, int>::const_iterator i = lookup.begin();
+ 
+	while (i != lookup.end()) {
+		char symbol = i->first;
+		int count = i->second;
+		freq_info* node = create_leaf(symbol, count);
+    q.push(node);
+		i++;
+	}
 }
 
 freq_info* build_tree(tree_queue& q) {
