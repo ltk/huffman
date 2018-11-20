@@ -2,6 +2,7 @@
 //
 
 #include "huffman.h"
+#include <iostream>
 
 using namespace std;
 
@@ -40,15 +41,36 @@ void load_queue(const map<char, int>& lookup, tree_queue& q) {
 	while (i != lookup.end()) {
 		char symbol = i->first;
 		int count = i->second;
+    cout << "Adding " << symbol << " with count " << count << endl;
 		freq_info* node = create_leaf(symbol, count);
     q.push(node);
 		i++;
 	}
+
+  cout << "Done adding. Size is " << q.size() << " sym is " << q.top()->symbol << endl;
 }
 
 freq_info* build_tree(tree_queue& q) {
-  // TODO
-  return NULL;
+  bool done = false;
+  freq_info *left = NULL;
+  freq_info *right = NULL;
+
+  while(true) {
+    // If there is only one item in the queue, it's the complete tree!
+    if (q.size() == 1) {
+      return q.top();
+    }
+
+    // Otherwise, there are 2+ items in the queue, and we have more tree combining to do.
+    left = q.top();
+    q.pop();
+
+    right = q.top();
+    q.pop();
+
+    freq_info* new_node = combine_nodes(left, right);
+    q.push(new_node);
+  }
 }
 
 map<char, string> build_encoding_table(freq_info* root) {
