@@ -6,13 +6,24 @@
 using namespace std;
 
 freq_info* create_leaf(char symbol, int count) {
-  // TODO
-  return NULL;
+  freq_info* leaf = new freq_info;
+  leaf->symbol = symbol;
+  leaf->count = count;
+  leaf->left = NULL;
+  leaf->right = NULL;
+  leaf->is_leaf = true;
+  return leaf;
 }
 
 freq_info* combine_nodes(freq_info* left, freq_info* right) {
-  // TODO
-  return NULL;
+  freq_info* internal = new freq_info;
+  internal->symbol = NULL;
+  internal->count = left->count + right->count;
+  internal->left = left;
+  internal->right = right;
+  internal->is_leaf = false;
+
+  return internal;
 }
 
 void increment_lookup(map<char, int>& lookup, char symbol) {
