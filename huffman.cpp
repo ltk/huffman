@@ -106,6 +106,23 @@ string encode(map<char, string> enc_table, string input) {
 }
 
 string decode(freq_info* root, string input) {
-  // TODO
-  return "";
+  freq_info* cursor = root;
+  string decoded = "";
+
+  for(int i = 0; i < input.length(); i++) {
+    char direction = input[i];
+
+    if (direction == '^') { // Right
+      cursor = cursor->right;
+    } else if (direction == '.') { // Left
+      cursor = cursor->left;
+    }
+
+    if (cursor->is_leaf) {
+      decoded += cursor->symbol;
+      cursor = root;
+    }
+  }
+
+  return decoded;
 }
