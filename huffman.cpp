@@ -73,9 +73,24 @@ freq_info* build_tree(tree_queue& q) {
   }
 }
 
+void traverse_tree(map<char, string> *table, freq_info* cursor, string path) {
+  if (cursor->is_leaf) {
+    // Add to map.
+    cout << "Adding to map " << cursor->symbol << endl;
+    table->insert(pair<char,string>(cursor->symbol, path));
+  } else {
+    // traverse down
+    traverse_tree(table, cursor->left, path + LEFT_CHAR);
+    traverse_tree(table, cursor->right, path + RIGHT_CHAR);
+  }
+}
+
 map<char, string> build_encoding_table(freq_info* root) {
-  // TODO
-  return map<char, string>();
+  map<char, string> table = map<char, string>();
+
+  traverse_tree(&table, root, "");
+
+  return table;
 }
 
 string encode(map<char, string> enc_table, string input) {
