@@ -27,7 +27,11 @@ freq_info* combine_nodes(freq_info* left, freq_info* right) {
 }
 
 void increment_lookup(map<char, int>& lookup, char symbol) {
-  // TODO
+  if (lookup[symbol] == NULL) {
+    lookup[symbol] = 1;
+  } else {
+    lookup[symbol] = lookup[symbol] + 1;
+  }
 }
 
 void load_queue(const map<char, int>& lookup, tree_queue& q) {
