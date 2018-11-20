@@ -94,8 +94,15 @@ map<char, string> build_encoding_table(freq_info* root) {
 }
 
 string encode(map<char, string> enc_table, string input) {
-  // TODO
-  return "";
+  string encoded = "";
+
+  for(int i = 0; i < input.length(); i++) {
+    char character = input[i];
+    string char_code = enc_table[character];
+    encoded += char_code;
+  }
+
+  return encoded;
 }
 
 string decode(freq_info* root, string input) {
